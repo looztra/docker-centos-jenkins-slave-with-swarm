@@ -1,0 +1,2 @@
+- name: Ensure jdk 7 is installed
+  yum: name="java-1.7.0-openjdk-devel-{{ openjdk7_version }}"

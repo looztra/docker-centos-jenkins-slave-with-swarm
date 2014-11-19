@@ -1,0 +1,13 @@
+- name: Prepare jenkins_swarm_client directory
+  file:
+    state=directory
+    owner=0
+    group=0
+    mode=0755
+    dest={{ jenkins_swarm_client_directory }}
+
+- name: Download jenkins_swarm_client_jar {{ jenkins_swarm_version }}
+  get_url:
+    dest={{ jenkins_swarm_client_directory }}/{{ jenkins_swarm_client_jar }}
+    url={{ jenkins_swarm_url }}
+    mode=0644

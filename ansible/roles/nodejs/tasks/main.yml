@@ -1,0 +1,8 @@
+- name: ensure nodejs is installed
+  yum: name=nodejs state=latest
+
+- name: ensure npm is installed
+  yum: name=npm state=latest
+
+- name: ensure grunt-cli is installed
+  npm: name=grunt-cli global=yes

@@ -1,0 +1,5 @@
+- name: Ensure git is installed
+  yum: name=git state=latest
+
+- name: Ensure mercurial is installed
+  yum: name=mercurial state=latest

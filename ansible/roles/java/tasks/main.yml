@@ -1,0 +1,2 @@
+- include: jdk6.yml tags=jdk6
+- include: jdk7.yml tags=jdk7

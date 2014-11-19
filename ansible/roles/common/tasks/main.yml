@@ -1,0 +1,17 @@
+- name: ensure Epel is installed
+  yum: name=epel-release
+
+- name: ensure unarchive binaries are present
+  yum: name={{ item }} state=installed
+  with_items:
+  - unzip
+  - tar
+
+- name: ensure /var/lib/exported exists
+  file: path=/var/lib/exported state=directory
+
+- name: ensure user jenkins is present
+  user: name=jenkins comment="Jenkins slave user" uid=1102
+
+- name: ensure maven .m2 directory exists
+  file: path=/home/jenkins/.m2 state=directory owner=jenkins group=jenkins
