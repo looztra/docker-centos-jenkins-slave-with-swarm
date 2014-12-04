@@ -1,0 +1,72 @@
+---
+- name: Load version vars
+  tags: maven
+  with_first_found:
+    - ../vars/versions/{{ maven_version }}.yml
+    - ../vars/versions/default.yml
+  include_vars: "{{ item }}"
+
+- name: Assert version vars for version {{ maven_version }}
+  tags: maven
+  assert:
+    that:
+      - maven_redis_sha256sum not in (None, "")
+
+
+- name: Install remote ansible data path directory
+  tags: maven
+  file:
+    state=directory
+    dest={{ remote_ansible_data_path }}
+
+- name: Download Maven {{ maven_version }}
+  tags: maven
+  get_url:
+    dest={{ remote_ansible_data_path }}/{{ maven_redis_filename }}
+    url={{ maven_mirror }}/{{ maven_redis_filename }}
+    mode=0644
+    sha256sum={{ maven_redis_sha256sum }}
+
+- name: Prepare Maven {{ maven_version }} installation directory
+  tags: maven
+  file:
+    state=directory
+    owner=0
+    group=0
+    mode=0755
+    dest={{ maven_install_dir }}
+
+
+- name: Install Maven {{ maven_version }}
+  tags: maven
+  unarchive:
+    src={{ remote_ansible_data_path }}/{{ maven_redis_filename }}
+    dest={{ maven_install_dir }}
+    copy=false
+    creates={{ maven_install_dir }}/apache-maven-{{ maven_version }}
+
+- name: Remove installation archive for maven {{ maven_version }}
+  tags: maven
+  file:
+    path={{ remote_ansible_data_path }}/{{ maven_redis_filename }}
+    state=absent
+
+
+- name: Install Global Maven bin directory
+  tags: maven
+  file:
+    state=directory
+    owner=0
+    group=0
+    mode=0755
+    dest={{ maven_bin_path }}
+  when: maven_default is defined and maven_default
+
+- name: Install Maven {{ maven_version }} binary as the default one
+  tags: maven
+  file:
+    state=link
+    force=true
+    src={{ maven_install_dir }}/apache-maven-{{ maven_version }}/bin/mvn
+    dest={{ maven_bin_path }}/mvn
+  when: maven_default is defined and maven_default
