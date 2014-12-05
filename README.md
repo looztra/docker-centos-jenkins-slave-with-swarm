@@ -1,5 +1,5 @@
-docker-centos-jenkins-slave-with-swarm
-======================================
+What?
+=====
 
 * A docker container based on Centos (7), ready to run as a jenkins slave with java/maven/git/mercurial.
 * Auto discovers jenkins master.
