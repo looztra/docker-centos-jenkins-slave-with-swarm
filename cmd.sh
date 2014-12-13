@@ -24,13 +24,12 @@ fi
 #
 mkdir -p ${SWARM_EXPORTED_VOLUME}/jenkins
 mkdir -p ${SWARM_EXPORTED_VOLUME}/dot_jenkins
-mkdir -p ${SWARM_EXPORTED_VOLUME}/maven
+mkdir -p ${SWARM_EXPORTED_VOLUME}/dot_maven
 #
 cd /home/jenkins
 ln -s ${SWARM_EXPORTED_VOLUME}/dot_jenkins .jenkins
 #
-cd /home/jenkins/.m2
-ln -s ${SWARM_EXPORTED_VOLUME}/maven repository
+ln -s ${SWARM_EXPORTED_VOLUME}/dot_maven .m2
 #
 cd /home/jenkins
 java -jar ${SWARM_JAR} ${PARAMS} -fsroot ${SWARM_EXPORTED_VOLUME}/jenkins -executors ${SWARM_NB_EXECUTORS}
