@@ -1,6 +1,6 @@
 ---
 # Maven version number
-maven_version: 3.2.3
+maven_version: 3.3.1
 
 # Mirror where to dowload Maven redistributable package from
 maven_mirror: "http://archive.apache.org/dist/maven/binaries/"
