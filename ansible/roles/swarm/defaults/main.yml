@@ -1,4 +1,4 @@
-jenkins_swarm_version: 1.21
+jenkins_swarm_version: 1.22
 jenkins_swarm_client_jar: swarm-client-jar-with-dependencies.jar
 jenkins_swarm_url: "http://maven.jenkins-ci.org/content/repositories/releases/org/jenkins-ci/plugins/swarm-client/{{ jenkins_swarm_version }}/swarm-client-{{ jenkins_swarm_version }}-jar-with-dependencies.jar"
 jenkins_swarm_client_directory: /opt/jenkins_swarm_client
